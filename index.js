@@ -15,9 +15,10 @@ app.get('/webhook', function (req, res) {
 })
 
 app.post('/webhook', function (req, res) {
+  //var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     return res.json({
-        speech: "2nd Floor 2 Merchant Place",
-        displayText: speech,
+        speech: req.body.result.parameters["given-name"] + req.body.result.parameters.employee_surname + " sits in 2nd Floor 2 Merchant Place",
+        displayText: req.body.result.parameters["given-name"] + req.body.result.parameters.employee_surname + " sits in 2nd Floor 2 Merchant Place",
         source: 'webhook-echo-sample'
     });
 })
