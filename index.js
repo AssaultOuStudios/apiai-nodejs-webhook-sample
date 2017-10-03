@@ -15,9 +15,8 @@ app.get('/webhook', function (req, res) {
 })
 
 app.post('/webhook', function (req, res) {
-  var fullName = req.body.result.parameters["given-name"] + req.body.result.parameters.employee_surname;
     return res.json({
-        speech: fullname + " sits in 2nd Floor 2 Merchant Place",
+        speech: "2nd Floor 2 Merchant Place",
         displayText: speech,
         source: 'webhook-echo-sample'
     });
