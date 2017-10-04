@@ -81,6 +81,49 @@ app.post('/webhook', function (req, res, next) {
     })
   }
 
+  if (action === 'contact_details') {
+    let name = req.body.result.parameters.first_name;
+    let surname = req.body.result.parameters.surname;
+    let api = `http://52.179.15.57:8080/get/employee/${name}/${surname}`
+    request(api, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          let message = JSON.parse(body).length !== 0 ? `Your employee number is ${JSON.parse(body)[0].employeeId}` : 'This user was not found';
+          res.send({
+            speech: message,
+            displayText: message,
+            source: 'location-webhook',
+            data: {
+              facebook: {
+                text: message
+              },
+              "payload": {
+                "cards": [
+                  {
+                    "Title": "Dave Sinclair",
+                    "Link": "mailto:dave.sinclair@rmb.co.za",
+                    "Description": "Phone: <a href= \"tel:+27 11 282 8077\">+27 11 282 8077</a><br> Email: <a href= \"mailto:dave.sinclair@rmb.co.za\">dave.sinclair@rmb.co.za</a>",
+                    "Type": "contact",
+                    "Status": "",
+                    "Author": "",
+                    "ModifiedDate": "",
+                    "ExpiryDate": "",
+                    "StackOrder": "",
+                    "Featured": "",
+                    "CardTemplate": "priority-vertical",
+                    "CardFocalPoint": "top-left",
+                    "CardImage": "dave-sinclair",
+                    "Icon": "",
+                    "CardClasses": "",
+                    "ColumnWidth": "2"
+                  }
+                ]
+              }
+            }
+          });
+      }
+    })
+  }
+
   if (action === 'business_unit_total') {
     let business_unit = req.body.result.parameters.business_unit;
     let api = `http://52.179.15.57:8080/division/employee/count/${business_unit}`
