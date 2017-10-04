@@ -92,31 +92,41 @@ app.post('/webhook', function (req, res, next) {
             speech: message,
             displayText: message,
             source: 'location-webhook',
+            "messages": [
+              {
+                "type": 0,
+                "id": "52b8994c-dfe0-4e97-a346-db834c304261",
+                "speech": "Your employee number is 4991982"
+              },
+              {
+                "type": 4,
+                "id": "fb8ccd44-ed27-4d3a-9ba5-c68bf7ea25c1",
+                "payload": {
+                  "cards": [
+                    {
+                      "Title": "Dave Sinclair",
+                      "Link": "mailto:dave.sinclair@rmb.co.za",
+                      "Description": "Phone: <a href= \"tel:+27 11 282 8077\">+27 11 282 8077</a><br> Email: <a href= \"mailto:dave.sinclair@rmb.co.za\">dave.sinclair@rmb.co.za</a>",
+                      "Type": "contact",
+                      "Status": "",
+                      "Author": "",
+                      "ModifiedDate": "",
+                      "ExpiryDate": "",
+                      "StackOrder": "",
+                      "Featured": "",
+                      "CardTemplate": "priority-vertical",
+                      "CardFocalPoint": "top-left",
+                      "CardImage": "dave-sinclair",
+                      "Icon": "",
+                      "CardClasses": "",
+                      "ColumnWidth": "2"
+                    }
+                  ]
+                }
+            ]
             data: {
               facebook: {
                 text: message
-              },
-              "payload": {
-                "cards": [
-                  {
-                    "Title": "Dave Sinclair",
-                    "Link": "mailto:dave.sinclair@rmb.co.za",
-                    "Description": "Phone: <a href= \"tel:+27 11 282 8077\">+27 11 282 8077</a><br> Email: <a href= \"mailto:dave.sinclair@rmb.co.za\">dave.sinclair@rmb.co.za</a>",
-                    "Type": "contact",
-                    "Status": "",
-                    "Author": "",
-                    "ModifiedDate": "",
-                    "ExpiryDate": "",
-                    "StackOrder": "",
-                    "Featured": "",
-                    "CardTemplate": "priority-vertical",
-                    "CardFocalPoint": "top-left",
-                    "CardImage": "dave-sinclair",
-                    "Icon": "",
-                    "CardClasses": "",
-                    "ColumnWidth": "2"
-                  }
-                ]
               }
             }
           });
