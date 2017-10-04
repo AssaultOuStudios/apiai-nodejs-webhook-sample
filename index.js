@@ -8,14 +8,6 @@ app.set('port', (process.env.PORT || 5000))
 const REQUIRE_AUTH = true
 const AUTH_TOKEN = '16a0d80c05d7403eb97811641f77723b'
 
-const requestApi = (api) => {
-  request(api, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        return body;
-    }
-  })
-}
-
 app.get('/', function (req, res) {
   res.send('Use the /webhook endpoint.')
 })
@@ -27,18 +19,21 @@ app.post('/webhook', function (req, res, next) {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
     let api = `http://52.179.15.57:8080/location/${name}/${surname}`
-    let body = requestApi(api);
-    let message = JSON.parse(body).length !== 0 ? `${name} ${surname} sits in ${JSON.parse(body)[0].location}` : 'This user was not found';
-    res.send({
-      speech: message,
-      displayText: message,
-      source: 'location-webhook',
-      data: {
-        facebook: {
-          text: message
-        }
+    request(api, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          let message = JSON.parse(body).length !== 0 ? `${name} ${surname} sits in ${JSON.parse(body)[0].location}` : 'This user was not found';
+          res.send({
+            speech: message,
+            displayText: message,
+            source: 'location-webhook',
+            data: {
+              facebook: {
+                text: message
+              }
+            }
+          });
       }
-    });
+    })
   }
 
 })
