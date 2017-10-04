@@ -15,6 +15,7 @@ app.get('/', function (req, res) {
 app.post('/webhook', function (req, res, next) {
   //var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
   let action = req.body.result.action;
+  if (action === 'get_location') {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
     let api = `http://52.179.15.57:8080/location/${name}/${surname}`
@@ -32,7 +33,9 @@ app.post('/webhook', function (req, res, next) {
             }
           });
       }
-    })
+    });
+  }
+
 })
 
 app.listen(app.get('port'), function () {
