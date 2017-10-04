@@ -39,34 +39,48 @@ app.post('/webhook', function (req, res, next) {
   }
 
   if (action === 'complaint_entry') {
+
+  }
+
+  if (action === 'emplyee_number') {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
-    let email = req.body.result.parameters.email_address;
-    let phone = req.body.result.parameters.phone_number;
-    let complaint = req.body.result.parameters.complaint_detail;
-
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'vernon.hiriji.joyce@gmail.com',
-        pass: '0827841899'
+    let api = `http://52.179.15.57:8080/location/${name}/${surname}`
+    request(api, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          let message = JSON.parse(body).length !== 0 ? `${name} ${surname} sits in ${JSON.parse(body)[0].location}` : 'This user was not found';
+          res.send({
+            speech: message,
+            displayText: message,
+            source: 'location-webhook',
+            data: {
+              facebook: {
+                text: message
+              }
+            }
+          });
       }
-    });
+    })
+  }
 
-    var mailOptions = {
-      from: 'complaints@rmbbot.com',
-      to: 'vernon@assaultou.com',
-      subject: `${name} ${surname} has a complaint about RMB`,
-      text: 'That was easy!'
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
+  if (action === 'business_unit_total') {
+    let business_unit = req.body.result.parameters.business_unit;
+    let api = `http://52.179.15.57:8080/division/employee/${business_unit}`
+    request(api, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          let message = JSON.parse(body).length !== 0 ? `There are ${body} in ${business_unit}`;
+          res.send({
+            speech: message,
+            displayText: message,
+            source: 'location-webhook',
+            data: {
+              facebook: {
+                text: message
+              }
+            }
+          });
       }
-    });
+    })
   }
 
 })
