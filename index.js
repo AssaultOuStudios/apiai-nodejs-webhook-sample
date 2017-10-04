@@ -91,7 +91,17 @@ app.post('/webhook', function (req, res, next) {
           res.send({
             speech: message,
             displayText: message,
-            source: 'location-webhook'
+            source: 'location-webhook',
+            "fulfillment": {
+              "speech": "",
+              "messages": [
+                {
+                  "type": 0,
+                  "id": "17e05bfc-d44f-4141-8e0c-34d0bf9e28af",
+                  "speech": "Test spec"
+                }
+              ]
+            }
           });
       }
     })
