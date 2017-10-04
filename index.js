@@ -123,7 +123,7 @@ app.post('/webhook', function (req, res, next) {
                     }
                   ]
                 }
-            ]
+            ],
             data: {
               facebook: {
                 text: message
