@@ -87,7 +87,8 @@ app.post('/webhook', function (req, res, next) {
     let api = `http://52.179.15.57:8080/get/employee/${name}/${surname}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-          let message = JSON.parse(body).length !== 0 ? `Your employee number is ${JSON.parse(body)[0].employeeId}` : 'This user was not found';
+          let message = JSON.parse(body).length !== 0 ? `${name} ${surname}'s contact details are:'` : 'This user was not found';
+          let userData = JSON.parse(body)[0];
           res.send({
             speech: message,
             displayText: message,
@@ -95,9 +96,9 @@ app.post('/webhook', function (req, res, next) {
             data: {
               "cards": [
                 {
-                  "Title": "Dave Sinclair",
-                  "Link": "mailto:dave.sinclair@rmb.co.za",
-                  "Description": "Phone: <a href= \"tel:+27 11 282 8077\">+27 11 282 8077</a><br> Email: <a href= \"mailto:dave.sinclair@rmb.co.za\">dave.sinclair@rmb.co.za</a>",
+                  "Title": `${userData.firstname} ${userData.surname}`,
+                  "Link": `mailto:${userData.emailAddress}`,
+                  "Description": `Phone: <a href= "tel:${userData.workTelNumber}">${userData.workTelNumber}</a><br> Email: <a href= "mailto:${userData.workTelNumber}">${userData.workTelNumber}</a>`,
                   "Type": "contact",
                   "Status": "",
                   "Author": "",
@@ -107,7 +108,7 @@ app.post('/webhook', function (req, res, next) {
                   "Featured": "",
                   "CardTemplate": "priority-vertical",
                   "CardFocalPoint": "top-left",
-                  "CardImage": "dave-sinclair",
+                  "CardImage": `http://wearermb/DNA/user_photos/${userData.employeeId}.jpg`,
                   "Icon": "",
                   "CardClasses": "",
                   "ColumnWidth": "2"
