@@ -93,28 +93,26 @@ app.post('/webhook', function (req, res, next) {
             displayText: message,
             source: 'location-webhook',
             data: {
-              contact_details: {
-                "cards": [
-                  {
-                    "Title": "Dave Sinclair",
-                    "Link": "mailto:dave.sinclair@rmb.co.za",
-                    "Description": "Phone: <a href= \"tel:+27 11 282 8077\">+27 11 282 8077</a><br> Email: <a href= \"mailto:dave.sinclair@rmb.co.za\">dave.sinclair@rmb.co.za</a>",
-                    "Type": "contact",
-                    "Status": "",
-                    "Author": "",
-                    "ModifiedDate": "",
-                    "ExpiryDate": "",
-                    "StackOrder": "",
-                    "Featured": "",
-                    "CardTemplate": "priority-vertical",
-                    "CardFocalPoint": "top-left",
-                    "CardImage": "dave-sinclair",
-                    "Icon": "",
-                    "CardClasses": "",
-                    "ColumnWidth": "2"
-                  }
-                ]
-              }
+              "cards": [
+                {
+                  "Title": "Dave Sinclair",
+                  "Link": "mailto:dave.sinclair@rmb.co.za",
+                  "Description": "Phone: <a href= \"tel:+27 11 282 8077\">+27 11 282 8077</a><br> Email: <a href= \"mailto:dave.sinclair@rmb.co.za\">dave.sinclair@rmb.co.za</a>",
+                  "Type": "contact",
+                  "Status": "",
+                  "Author": "",
+                  "ModifiedDate": "",
+                  "ExpiryDate": "",
+                  "StackOrder": "",
+                  "Featured": "",
+                  "CardTemplate": "priority-vertical",
+                  "CardFocalPoint": "top-left",
+                  "CardImage": "dave-sinclair",
+                  "Icon": "",
+                  "CardClasses": "",
+                  "ColumnWidth": "2"
+                }
+              ]
             }
           });
       }
