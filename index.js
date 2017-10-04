@@ -68,7 +68,7 @@ app.post('/webhook', function (req, res, next) {
     let api = `http://52.179.15.57:8080/division/employee/${business_unit}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-          let message = JSON.parse(body).length !== 0 ? `There are ${body} in ${business_unit}`;
+          let message = JSON.parse(body).length !== 0 ? `There are ${body} in ${business_unit}` : `Couldn't find ${business_unit}`;
           res.send({
             speech: message,
             displayText: message,
