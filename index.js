@@ -20,7 +20,7 @@ app.post('/webhook', function (req, res, next) {
     let api = `http://52.179.15.57:8080/location/${name}/${surname}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-          res.send({
+          res.send(JSON.stringify(){
             speech: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`,
             displayText: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`,
             source: 'location-webhook',
@@ -28,7 +28,7 @@ app.post('/webhook', function (req, res, next) {
               facebook: {
                 speech: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`
               }
-          });
+          }));
       }
     })
 })
