@@ -28,6 +28,7 @@ app.post('/webhook', function (req, res, next) {
               facebook: {
                 text: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`
               }
+            }
           });
       }
     })
