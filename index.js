@@ -14,6 +14,7 @@ app.get('/', function (req, res) {
 
 app.post('/webhook', function (req, res, next) {
   //var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
+  let action = req.body.result.action;
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
     let api = `http://52.179.15.57:8080/location/${name}/${surname}`
@@ -22,7 +23,11 @@ app.post('/webhook', function (req, res, next) {
           res.send({
             speech: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`,
             displayText: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`,
-            source: 'location-webhook'
+            source: 'location-webhook',
+            data: {
+              facebook: {
+                speech: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`
+              }
           });
       }
     })
