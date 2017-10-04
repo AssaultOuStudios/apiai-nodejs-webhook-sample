@@ -87,7 +87,7 @@ app.post('/webhook', function (req, res, next) {
     let api = `http://52.179.15.57:8080/get/employee/${name}/${surname}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-          let message = JSON.parse(body).length !== 0 ? `${name} ${surname}'s contact details are:'` : 'This user was not found';
+          let message = JSON.parse(body).length !== 0 ? `${name} ${surname}'s contact details are:` : 'This user was not found';
           let userData = JSON.parse(body)[0];
           res.send({
             speech: message,
