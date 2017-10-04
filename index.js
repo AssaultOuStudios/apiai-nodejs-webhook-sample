@@ -38,14 +38,32 @@ app.post('/webhook', function (req, res, next) {
     })
   }
 
-  if (action === 'complaint_entry') {
-
+  if (action === 'manages') {
+    let name = req.body.result.parameters.first_name;
+    let surname = req.body.result.parameters.surname;
+    let api = `http://52.179.15.57:8080/manages/employee/${name}/${surname}`
+    request(api, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          let manager = JSON.parse(body)[0];
+          let message = JSON.parse(body).length !== 0 ? `${name} ${surname} reports to ${manager.firstname}  ${manager.surname}` : 'This user was not found';
+          res.send({
+            speech: message,
+            displayText: message,
+            source: 'location-webhook',
+            data: {
+              facebook: {
+                text: message
+              }
+            }
+          });
+      }
+    })
   }
 
   if (action === 'emplyee_number') {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
-    let api = `http://52.179.15.57:8080/location/${name}/${surname}`
+    let api = `http://52.179.15.57:8080/locate/employee/${name}/${surname}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
           let message = JSON.parse(body).length !== 0 ? `${name} ${surname} sits in ${JSON.parse(body)[0].location}` : 'This user was not found';
@@ -68,7 +86,7 @@ app.post('/webhook', function (req, res, next) {
     let api = `http://52.179.15.57:8080/division/employee/count/${business_unit}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-          let message = JSON.parse(body).length !== 0 ? `There are ${body} in ${business_unit}` : `Couldn't find ${business_unit}`;
+          let message = JSON.parse(body).length !== 0 ? `There are ${body} employees in ${business_unit}` : `Couldn't find ${business_unit}`;
           res.send({
             speech: message,
             displayText: message,
