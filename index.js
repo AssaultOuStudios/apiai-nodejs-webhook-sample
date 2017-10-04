@@ -20,9 +20,10 @@ app.post('/webhook', function (req, res, next) {
     let api = `http://52.179.15.57:8080/location/${name}/${surname}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
+          let message = body.length !=== 0 ? `${name} ${surname} sits in ${JSON.parse(body)[0].location}` : 'This user was not found'
           res.send({
-            speech: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`,
-            displayText: `${name} ${surname} sits in ${JSON.parse(body)[0].location}`,
+            speech: message,
+            displayText: message,
             source: 'location-webhook',
             data: {
               facebook: {
