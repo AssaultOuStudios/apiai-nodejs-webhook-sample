@@ -48,8 +48,8 @@ app.post('/webhook', function (req, res, next) {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'vernon@assaultou.com',
-        pass: 'AngelicSolace_1990='
+        user: 'vernon.hiriji.joyce@gmail.com',
+        pass: '0827841899'
       }
     });
 
