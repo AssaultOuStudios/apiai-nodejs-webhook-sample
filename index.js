@@ -65,7 +65,7 @@ app.post('/webhook', function (req, res, next) {
 
   if (action === 'business_unit_total') {
     let business_unit = req.body.result.parameters.business_unit;
-    let api = `http://52.179.15.57:8080/division/employee/${business_unit}`
+    let api = `http://52.179.15.57:8080/division/employee/count/${business_unit}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
           let message = JSON.parse(body).length !== 0 ? `There are ${body} in ${business_unit}` : `Couldn't find ${business_unit}`;
