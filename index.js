@@ -20,7 +20,7 @@ app.post('/webhook', function (req, res, next) {
   if (action === 'get_location') {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
-    let api = `http://52.179.15.57:8080/locate/employee/${name}/${surname}`
+    let api = `http://52.179.15.57:8080/locate/${name}/${surname}`
     request(api, function (error, response, body) {
       if (!error && response.statusCode == 200) {
           let message = JSON.parse(body).length !== 0 ? `${name} ${surname} sits in ${JSON.parse(body)[0].location}` : 'This user was not found';
