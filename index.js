@@ -145,7 +145,7 @@ app.post('/webhook', function (req, res, next) {
   if (action === 'update_phone_number') {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
-    let api = `http://52.179.15.57:8080/employee/${name}/${surname}`
+    let api = `http://52.179.15.57:8080/employee/`
     request({url: api, method: 'PUT', data: JSON.stringify({
       id: 2292,
       employeeId: 4991982,
