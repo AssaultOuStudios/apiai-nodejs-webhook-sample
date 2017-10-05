@@ -146,7 +146,7 @@ app.post('/webhook', function (req, res, next) {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
     let api = `http://52.179.15.57:8080/employee/${name}/${surname}`
-    request({url: api, method: 'PUT', json: JSON.stringify{
+    request({url: api, method: 'PUT', json: JSON.stringify({
       id: 2292,
       employeeId: 4991982,
       firstname: "Vernon",
@@ -157,7 +157,7 @@ app.post('/webhook', function (req, res, next) {
       cellNumber: "0827841899",
       emailAddress: "vernon.joyce@rmb.co.za",
       position: "Web Developer"
-    }}, function (error, response, body) {
+    })}, function (error, response, body) {
       let message;
       if (!error && response.statusCode == 200) {
           message = 'Your details have been updated successfully';
