@@ -81,6 +81,8 @@ app.post('/webhook', function (req, res, next) {
     })
   }
 
+  // Contact
+
   if (action === 'contact_details') {
     let name = req.body.result.parameters.first_name;
     let surname = req.body.result.parameters.surname;
