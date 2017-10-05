@@ -140,43 +140,6 @@ app.post('/webhook', function (req, res, next) {
     })
   }
 
-
-
-  if (action === 'update_phone_number') {
-    let name = req.body.result.parameters.first_name;
-    let surname = req.body.result.parameters.surname;
-    let api = `http://52.179.15.57:8080/employee/`
-    request({url: api, method: 'PUT', json: JSON.stringify({
-      id: 2292,
-      employeeId: 4991982,
-      firstname: "Vernon",
-      surname: "Joyce",
-      mnemonic: "VJO",
-      dateOfBirth: null,
-      workTelNumber: "0138058110",
-      cellNumber: "0827841899",
-      emailAddress: "vernon.joyce@rmb.co.za",
-      position: "Web Developer"
-    })}, function (error, response, body) {
-      let message = `There was a problem updating your details: ${error}, ${response}, ${body}`
-      if (!error && response.statusCode == 200) {
-          // message = 'Your details have been updated successfully';
-      } else {
-          // message = `There was a problem updating your details: ${error}`;
-      }
-      res.send({
-        speech: message,
-        displayText: message,
-        source: 'location-webhook',
-        data: {
-          facebook: {
-            text: message
-          }
-        }
-      });
-    })
-  }
-
 })
 
 app.listen(app.get('port'), function () {
