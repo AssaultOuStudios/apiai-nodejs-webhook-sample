@@ -162,7 +162,7 @@ app.post('/webhook', function (req, res, next) {
       if (!error && response.statusCode == 200) {
           message = 'Your details have been updated successfully';
       } else {
-          message = 'There was a problem updating your details: ${error}';
+          message = `There was a problem updating your details: ${error}`;
       }
       res.send({
         speech: message,
